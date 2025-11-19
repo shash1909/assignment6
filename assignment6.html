@@ -4,46 +4,132 @@
 <head>
   <meta charset="UTF-8">
   <title>Assignment 6</title>
+
   <style>
+
     body {
       font-family: Arial, sans-serif;
-      margin: 20px;
+      margin: 0;
+      padding: 0 20px;
+      background: #f5f5f5;
+    }
+
+    h2 {
+      padding: 10px;
+      background: #004aad;
+      color: white;
+      width: fit-content;
+      border-radius: 5px;
+      margin-top: 30px;
+    }
+
+
+    nav {
+      background: #ffffff;
+      padding: 15px;
+      border-bottom: 2px solid #ddd;
+      text-align: center;
+      margin-bottom: 20px;
+      position: sticky;
+      top: 0;
     }
 
     nav a {
-      margin: 0 10px;
+      margin: 0 15px;
       text-decoration: none;
       color: black;
+      font-size: 18px;
     }
 
     nav a.active {
       font-weight: bold;
-      color: blue;
+      color: #004aad;
+      border-bottom: 2px solid #004aad;
+      padding-bottom: 3px;
     }
+
 
     table {
       border-collapse: collapse;
       width: 100%;
-      margin: 20px 0;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 15px;
     }
 
-    th,
+    th {
+      background: #004aad;
+      color: white;
+      padding: 10px;
+    }
+
     td {
+      padding: 10px;
+    }
+
+    tr:nth-child(even) {
+      background: #f0f0f0;
+    }
+
+    tr:hover {
+      background: #d8e7ff;
+    }
+
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
       border: 1px solid #ddd;
+      width: 320px;
+    }
+
+    form input,
+    form select {
+      width: 100%;
       padding: 8px;
-      text-align: center;
+      margin-top: 5px;
+      border: 1px solid #aaa;
+      border-radius: 5px;
+    }
+
+    form button {
+      margin-top: 10px;
+      padding: 10px 15px;
+      background: #004aad;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    form button:disabled {
+      background: gray;
+      cursor: not-allowed;
+    }
+
+    .total {
+      font-weight: bold;
+      margin-top: 10px;
+      font-size: 18px;
     }
 
     .gallery {
       display: flex;
       gap: 10px;
-      margin: 20px 0;
+      margin: 15px 0;
     }
 
     .gallery img {
-      width: 100px;
+      width: 130px;
+      border-radius: 6px;
+      border: 2px solid #ccc;
       cursor: pointer;
-      border-radius: 5px;
+    }
+
+    .gallery img:hover {
+      border-color: #004aad;
     }
 
     .modal {
@@ -53,7 +139,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.8);
       justify-content: center;
       align-items: center;
     }
@@ -61,23 +147,16 @@
     .modal img {
       max-width: 80%;
       max-height: 80%;
-      background: #fff;
-      padding: 10px;
-      border-radius: 8px;
-    }
-
-    .form-section {
-      margin: 20px 0;
-    }
-
-    .total {
-      margin-top: 10px;
-      font-weight: bold;
+      border-radius: 10px;
+      border: 4px solid white;
+      background: white;
     }
   </style>
+
 </head>
 
 <body>
+
   <nav>
     <a href="#home" class="active">Home</a>
     <a href="#packages">Packages</a>
@@ -86,6 +165,7 @@
 
   <section id="packages">
     <h2>Packages</h2>
+
     <table id="packagesTable">
       <thead>
         <tr>
@@ -103,15 +183,30 @@
 
   <section class="form-section">
     <h2>Booking Price Estimator</h2>
+
     <form id="bookingForm">
-      <label>Check In: <input type="date" id="checkIn" required></label><br><br>
-      <label>Check Out: <input type="date" id="checkOut" required></label><br><br>
-      <label>Guests: <input type="number" id="guests" min="1" required></label><br><br>
+      <label>Check In:
+        <input type="date" id="checkIn" required>
+      </label><br><br>
+
+      <label>Check Out:
+        <input type="date" id="checkOut" required>
+      </label><br><br>
+
+      <label>Guests:
+        <input type="number" id="guests" min="1" required>
+      </label><br><br>
+
       <label>Package:
         <select id="packageSelect"></select>
       </label><br><br>
-      <label>Promo Code: <input type="text" id="promo"></label><br><br>
+
+      <label>Promo Code:
+        <input type="text" id="promo">
+      </label><br><br>
+
       <button type="submit" disabled>Book Now</button>
+
       <div class="total" id="total"></div>
     </form>
   </section>
@@ -120,11 +215,13 @@
     <h2>Gallery</h2>
     <div class="gallery">
       <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400"
-        data-large="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400" alt="Beach">
+        data-large="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800" alt="Beach">
+
       <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400"
-        data-large="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400" alt="Mountain">
-      <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=200"
-        data-large="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=200" alt="Forest">
+        data-large="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800" alt="Mountain">
+
+      <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=300"
+        data-large="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800" alt="Forest">
     </div>
   </section>
 
@@ -160,6 +257,7 @@
         <td>${finalPrice}</td>
       `
       tbody.appendChild(row)
+
       const opt = document.createElement("option")
       opt.value = p.basePrice
       opt.textContent = p.destination
@@ -180,18 +278,22 @@
         totalDiv.textContent = ""
         return
       }
+
       const nights = (new Date(checkOut.value) - new Date(checkIn.value)) / (1000 * 60 * 60 * 24)
       if (nights <= 0) {
         submitBtn.disabled = true
         totalDiv.textContent = ""
         return
       }
+
       let price = nights * Number(packageSelect.value)
       if (guests.value > 2) price *= 1.2
+
       switch (promo.value.trim().toUpperCase()) {
         case "EARLYBIRD": price *= 0.9; break
         case "FESTIVE": price *= 0.85; break
       }
+
       totalDiv.textContent = "Total: ₹" + price.toFixed(2)
       submitBtn.disabled = false
     }
@@ -201,14 +303,15 @@
     const galleryImgs = document.querySelectorAll(".gallery img")
     const modal = document.getElementById("modal")
     const modalImg = document.getElementById("modalImg")
+
     galleryImgs.forEach(img => {
       img.addEventListener("click", () => {
         modal.style.display = "flex"
         modalImg.src = img.dataset.large
         modalImg.alt = img.alt
-        modalImg.title = img.alt
       })
     })
+
     modal.addEventListener("click", () => {
       modal.style.display = "none"
     })
@@ -221,6 +324,7 @@
       })
     })
   </script>
+
 </body>
 
 </html>
