@@ -6,130 +6,142 @@
   <title>Assignment 6</title>
 
   <style>
-
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0 20px;
-      background: #f5f5f5;
+      background: #eef1f5;
     }
 
     h2 {
-      padding: 10px;
-      background: #004aad;
+      padding: 10px 15px;
+      background: #003d88;
       color: white;
       width: fit-content;
-      border-radius: 5px;
-      margin-top: 30px;
+      border-radius: 6px;
+      margin-top: 35px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
     }
 
-
     nav {
-      background: #ffffff;
-      padding: 15px;
-      border-bottom: 2px solid #ddd;
+      background: white;
+      padding: 18px;
       text-align: center;
-      margin-bottom: 20px;
+      border-bottom: 2px solid #ccc;
       position: sticky;
       top: 0;
+      z-index: 10;
     }
 
     nav a {
-      margin: 0 15px;
+      margin: 0 20px;
       text-decoration: none;
-      color: black;
+      color: #333;
       font-size: 18px;
+      padding-bottom: 4px;
     }
 
     nav a.active {
       font-weight: bold;
-      color: #004aad;
-      border-bottom: 2px solid #004aad;
-      padding-bottom: 3px;
+      color: #003d88;
+      border-bottom: 3px solid #003d88;
     }
-
 
     table {
       border-collapse: collapse;
       width: 100%;
       background: white;
       border-radius: 8px;
+      margin-top: 20px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
       overflow: hidden;
-      margin-top: 15px;
     }
 
     th {
-      background: #004aad;
+      background: #003d88;
       color: white;
-      padding: 10px;
+      padding: 12px;
     }
 
     td {
-      padding: 10px;
+      padding: 12px;
+      border-bottom: 1px solid #e0e0e0;
     }
 
     tr:nth-child(even) {
-      background: #f0f0f0;
+      background: #f4f6fa;
     }
 
     tr:hover {
-      background: #d8e7ff;
+      background: #dbe7ff;
     }
 
     form {
       background: white;
       padding: 20px;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-      width: 320px;
+      width: 350px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-top: 15px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
     }
 
     form input,
     form select {
       width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border: 1px solid #aaa;
-      border-radius: 5px;
+      padding: 10px;
+      margin-top: 7px;
+      border: 1px solid #999;
+      border-radius: 6px;
+      font-size: 15px;
     }
 
     form button {
-      margin-top: 10px;
-      padding: 10px 15px;
-      background: #004aad;
+      margin-top: 12px;
+      padding: 12px;
+      width: 100%;
+      background: #003d88;
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
+      font-size: 16px;
       cursor: pointer;
-      width: 100%;
+    }
+
+    form button:hover:enabled {
+      background: #002e66;
     }
 
     form button:disabled {
-      background: gray;
+      background: #888;
       cursor: not-allowed;
     }
 
     .total {
+      margin-top: 12px;
+      font-size: 19px;
       font-weight: bold;
-      margin-top: 10px;
-      font-size: 18px;
+      color: #003d88;
     }
 
     .gallery {
       display: flex;
-      gap: 10px;
-      margin: 15px 0;
+      gap: 12px;
+      margin: 20px 0;
     }
 
     .gallery img {
-      width: 130px;
-      border-radius: 6px;
-      border: 2px solid #ccc;
+      width: 140px;
+      border-radius: 8px;
+      border: 2px solid #bbb;
       cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     }
 
     .gallery img:hover {
-      border-color: #004aad;
+      border-color: #003d88;
+      transform: scale(1.04);
+      transition: 0.2s;
     }
 
     .modal {
@@ -139,17 +151,18 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.85);
       justify-content: center;
       align-items: center;
+      z-index: 20;
     }
 
     .modal img {
       max-width: 80%;
       max-height: 80%;
-      border-radius: 10px;
-      border: 4px solid white;
-      background: white;
+      border-radius: 12px;
+      border: 6px solid white;
+      box-shadow: 0 5px 15px black;
     }
   </style>
 
@@ -240,12 +253,7 @@
     const packageSelect = document.getElementById("packageSelect")
 
     packages.forEach(p => {
-      let multiplier = 1
-      switch (p.season) {
-        case "peak": multiplier = 1.5; break
-        case "off": multiplier = 0.8; break
-        default: multiplier = 1
-      }
+      let multiplier = p.season === "peak" ? 1.5 : p.season === "off" ? 0.8 : 1
       const finalPrice = p.basePrice * multiplier
       const row = document.createElement("tr")
       row.innerHTML = `
@@ -289,10 +297,9 @@
       let price = nights * Number(packageSelect.value)
       if (guests.value > 2) price *= 1.2
 
-      switch (promo.value.trim().toUpperCase()) {
-        case "EARLYBIRD": price *= 0.9; break
-        case "FESTIVE": price *= 0.85; break
-      }
+      const code = promo.value.trim().toUpperCase()
+      if (code === "EARLYBIRD") price *= 0.9
+      if (code === "FESTIVE") price *= 0.85
 
       totalDiv.textContent = "Total: ₹" + price.toFixed(2)
       submitBtn.disabled = false
@@ -308,7 +315,6 @@
       img.addEventListener("click", () => {
         modal.style.display = "flex"
         modalImg.src = img.dataset.large
-        modalImg.alt = img.alt
       })
     })
 
@@ -328,3 +334,4 @@
 </body>
 
 </html>
+
